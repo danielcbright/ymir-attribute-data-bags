@@ -1,6 +1,6 @@
 {
   "id": "attributes",
-  "version": "3",
+  "version": "4",
   "all": {
     "audit": {
       "interval": {
