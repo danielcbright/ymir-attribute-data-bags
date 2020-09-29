@@ -1,0 +1,27 @@
+{
+  "id": "attributes",
+  "version": "3",
+  "all": {
+    "audit": {
+      "interval": {
+        "enabled": false,
+        "time": 1800
+      }
+    }
+  },
+  "local": {
+    "audit": {
+      "interval": {
+        "enabled": false
+      }
+    }
+  },
+  "dev-sandbox": {
+    "audit": {
+      "interval": {
+        "enabled": true,
+        "time": 500
+      }
+    }
+  }
+}
