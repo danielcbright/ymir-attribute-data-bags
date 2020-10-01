@@ -1,0 +1,10 @@
+{
+  "id": "regions",
+  "version": {
+    "encrypted_data": "uCDAZf69HO8rthSDEfAjJbhHa7w=\n",
+    "iv": "Y3Vfh2WPMJnhL3NT\n",
+    "auth_tag": "VddwJoO6StsdGYZgI25xQQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

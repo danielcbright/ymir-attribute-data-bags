@@ -1,0 +1,10 @@
+{
+  "id": "attributes",
+  "version": {
+    "encrypted_data": "Z7PD63ztqxihz0bSXa5fPLTgODM=\n",
+    "iv": "U8PO8DFisGLgFTzB\n",
+    "auth_tag": "zbLYLWK4qkDCYGnws9A1Mw==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

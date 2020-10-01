@@ -1,0 +1,31 @@
+{
+  "id": "attributes",
+  "version": {
+    "encrypted_data": "pBVpE66n7AXx7p9QsKL9D8I+cFs=\n",
+    "iv": "gz0J0bxq8nqpJaMP\n",
+    "auth_tag": "ETp7GXeGp5go1BrteOuFwQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "all": {
+    "encrypted_data": "GvdakbSVlmZOWCxp/KYqAOEwlyVbHasLPkZIj6FLP9ugUemuIoIihqLgmcVq\nU7JDrUTrAqGWdX3k/zkGELSsM8sxGUPI+cOeLDlKDC70T8t5m9h1Qf1ls49+\noOD2sf6qXxQ2gldc9WPY2fPiiepMjexWWLJG8uEjh5vIPOpCZcGYHYTDo01O\nnubmFp9SRtysiVuAnaKpnYVg+71AVePNXLbWpB6eWyuuHaCD+vTU7i6FLSUf\no7lQXf/0y/0SwwF6UvKKkbVB81h8ZLC/0mJY6jKTJdMDUXLS9JApO89UA+Bn\nBZExX8vAZMA6+/X2QMSnR7W3nmPE4WM5UtMJrLF0ggJeu6Qy2TEzVKbyzCNp\nMh8kPjimFGdwFhfp3zolhVAA+qS3tvMy8n04MY+EBGBYgt9LW66VgYP2G3hC\nKV8mBcGCFToBMi5otWI5Ub9ymU+qB5mYizlvFYab+rZAwfdOhDGyHZW8UJfP\naFc89QCr2Y2fVJcElSxQfxNXEIBgEpQtRR8wGTeou9ACcwqLLSRsd00vfLht\nlhOrL5Fufez7h4yMHHxLWUb2wDJRHsw5yy4lbGM5oH5Z/H+e1j7Upu1c5ncg\nYsZZ3vbrDxB3GL00Ba8V8TF7Ef/ccCsrXuQ4e+Xrz2uGZ4fGPb1qB0Cd3z3+\nbNfeivNPN2PysBa49exb7DEdZf9ly52/BXwNCz9V95Nd+7zXQQLrHrpJCLer\n/xsCf7ndZPg7Tz+zlbgt/K1B+bqmh2MA+sN8c1dvz4HZe9mTpavXIoojY6CO\n6c5hPTM93AlZlWoHlvrUJcjdiJqKHm69di+mUbfO3Ry25gg6uSC1ogRfCYvU\nxPwddSfIijQq6f9LaXblR+dZr3M8Dwz9LJdqn4+e\n",
+    "iv": "L8L/X13ZlGbeThrY\n",
+    "auth_tag": "5QJg/Aymt9/KGMdmqZNZUQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "local": {
+    "encrypted_data": "znc1d1fawyY0z/jUiqUAIMkJOcSh8elIRbuPfgYn5gB5GoGy5LamguyTLmtw\nxTcbvntCWGCgvAYShgdkdFLVNxp8GCMc/W6L3yy5oFRVRxWi/ZZrUut5HR3U\ncHMAhr1XGJQHTVQVWMnHGz/ZCBah3oQXdhPrq/UoxgcYMK5xvYhFstFVyzf4\n1vS4TR6OimGt5lddrO6i97fpQxFo43KaQJx6oPBjFIjaSw==\n",
+    "iv": "+fkEJeHFg2i1gtYK\n",
+    "auth_tag": "8+Gmekrs84+kTZCZDfpekA==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "dev-sandbox": {
+    "encrypted_data": "qLs0T23oQJPeL+UhF6Tywntpi7ziUjc8N+Ju2wy+mjGSbilovbUIP3Wfz4ck\nb+txsGZk0Ip8fuls0KOwoNDo/AsA1/gHAiQeSuwVmau+pyDlySy2h42nW0NS\nHVMjFZuF7yuEW9jD5npogA==\n",
+    "iv": "Mmoli+Kp4h/bi5/g\n",
+    "auth_tag": "m7XrGbsoKBcjPUDCiXMTMQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}
