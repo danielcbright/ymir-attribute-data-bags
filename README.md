@@ -1,5 +1,7 @@
 # Encrypted Data Bag Repo
 
+![flow](./flow.png)
+
 _Make sure you follow the [this guide](https://github.com/chef-cft/chef-examples/blob/master/examples/ChefTestKitchenEncryptedDataBags.md)
 to get setup with local encrypted data bags before using this._
 
