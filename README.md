@@ -1,15 +1,15 @@
 # Encrypted Data Bag Repo
-
-![flow](./flow.png)
-
-_Make sure you follow the [this guide](https://github.com/chef-cft/chef-examples/blob/master/examples/ChefTestKitchenEncryptedDataBags.md)
-to get setup with local encrypted data bags before using this._
-
 **This repo is a template** that can be used to:
 * Ensure all data bags are encrypted prior to being committed to SCM.
 * Automate the locking (for commit) and unlocking (for editing) of data bags in
 a secure manner.
 * Provide a sane, repeatable pattern for teams using encrypted data bags.
+* _Make sure you follow the [this guide](https://github.com/chef-cft/chef-examples/blob/master/examples/ChefTestKitchenEncryptedDataBags.md)
+to get setup with local encrypted data bags before using this._
+* _This repo structure works great with [this Jenkins job](https://github.com/danielcbright/jenkins-chef-shared-library/blob/master/vars/dataBagOps.groovy) for uploading the Data
+Bags to the Chef Infra Server_
+
+![flow](./flow.png)
 
 ## Create Data Bags
 1. Clone this repo locally, copy it into your own repo.
@@ -21,6 +21,46 @@ unique names it makes life easier.
 1. Create your data bags in the `data_bags` directory, you can use the
 examples as a guide, basically it's `data_bags\bagName\bagItem-open.json`, be sure to end them in `-open.json` because this is the pattern that is 
 looked for when running the encrypt script.
+
+## Version Data Bags
+Data Bags by default don't have a versioning schema, so we have to create our 
+own. There are a couple of issues with Encrypted Data Bags that make it a little
+more difficult. First, all key values are encrypted, so you can't create a key
+called `version` and just put a value there. Second, Chef Infra Server doesn't
+keep a record of previous Data Bags, it just overwrites what's there with what
+you provide.
+
+We get around this by doing a couple of things:
+
+1. When creating your Data Bag, add a key like this:
+    ```json
+    {
+      "id": "attributes",
+      "version-1": ""
+    }
+    ```
+    Now you can see the version associated with a particular Data Bag even if
+    it's encrypted because the key is always visible. Here's what it looks like
+    encrypted, notice the key name is the same (and visible):
+    ```json
+    {
+      "id": "attributes",
+      "version-1": {
+        "encrypted_data": "I0FEZMkGTwkd0vybY4I16C4bLg==\n",
+        "iv": "QCM1KzMNU6NVF6Ph\n",
+        "auth_tag": "4mbRr+1cHcDCpST2X7hSdA==\n",
+        "version": 3,
+        "cipher": "aes-256-gcm"
+      }
+    }
+    ```
+1. Next, we can check the version on disk with the version on the Chef Infra
+Server prior to uploading the data bag. How? You just pull the `version-` key
+from the data bag and do some string manipulation to get the number only, then
+compare it to what's on the server. If the number on disk is higher, then allow
+the Data Bag to be uploaded, if not, then don't allow it. This is best handled
+by automation, here's an [example Jenkins job](https://github.com/danielcbright/jenkins-chef-shared-library/blob/master/vars/dataBagOps.groovy) that uses some 
+simple bash to get the job done.
 
 ## Encrypt Data Bags for Committing
 1. Run the `scripts/dbag-ops.sh -l -s <secret file path> [ -p <bagName> ]` which will encrypt each data bag in the 
@@ -206,7 +246,7 @@ default['attributes-loader']['dbags'] = {
     "secret_file": '/opt/chef/ymir_secret',
   },
   "ymir-base": {
-    "secret_file": '/tmp/kitchen/data/ymir_secret',
+    "secret_file": '/opt/chef/ymir_secret',
   },
 }
 ```

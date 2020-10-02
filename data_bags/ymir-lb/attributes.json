@@ -1,9 +1,9 @@
 {
   "id": "attributes",
-  "version": {
-    "encrypted_data": "EIJ8/rIJN3ABv6caoYsBb3P+vCA=\n",
-    "iv": "pHYVIPBxCFeGoZJc\n",
-    "auth_tag": "uzhuwIWD6NPIG2hO1nvskg==\n",
+  "version-2": {
+    "encrypted_data": "Q7gQavnQMhYnsCzVkKWy1i5iHw==\n",
+    "iv": "SZ1xMc0OoOZTa7b0\n",
+    "auth_tag": "+LuKk9c4ODzXZ1RGX7moAg==\n",
     "version": 3,
     "cipher": "aes-256-gcm"
   }
