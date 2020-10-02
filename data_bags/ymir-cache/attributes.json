@@ -1,0 +1,17 @@
+{
+  "id": "attributes",
+  "version-2": {
+    "encrypted_data": "ZmzFDlx72BnygBRqEbfbqVNUEQ==\n",
+    "iv": "NbxxHudtavIuGykJ\n",
+    "auth_tag": "28Bx2eyIkPhLI0ScvkP75g==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "all": {
+    "encrypted_data": "RE3n2tUB1DnUNzwjDVtSS7QX6JVBr8N7pYJxEushUXXijJ1KsOK4M1R7f9ZG\nhjw7o+5veTSO/s1prNTqSRXu4U/b8AarJkJd3DeczAW4hW7Kb1SK0wfFMO/I\nQqWoKSua5sqjPddgLgCNRdMOQzmajsWHEz0K4PCz8GnUUsTYZ8bP1b/A4Pt3\nQetCsxCN/FpsyiSjJnrgOn83J2D6Nx8u1iETEAZhrK6yJAStiK3iJgvLxw==\n",
+    "iv": "k6Thg6OysLjr3mLb\n",
+    "auth_tag": "ud8+XoPMoCtMVPmctIV21Q==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}

@@ -1,0 +1,4 @@
+secrets/*
+*open.json
+!examplebag-open.json
+dbag-secrets.rb
