@@ -88,3 +88,146 @@ data_bags/ymir/attributes.json is encrypted [PASS]
 
 By following this guide, you can make sure that your data bags are always 
 encrypted prior to being uploaded to SCM.
+
+## Copy Your Data Bag Secrets to Nodes
+There are really two ways you can do this (3, but the 3rd way is manual so I 
+won't even cover it here).
+
+1. First, during the node provisioning process, whatever it may be, copy your 
+data bag secrets to the node. This could be at image creation time 
+(Packer, kickstart, etc...), or it could be at deployment time (Terraform, 
+Cloud Formation, Azure Templates...).
+1. Second (and better), you can use `chef-run` to deploy your data bag
+secrets using a simple recipe. Copy the example recipe in 
+`scripts/dbag-secrets-example.rb` to a new file called `dbag-secrets.rb`. Edit
+the file and replace the recipe with your own content, then run against your
+nodes, here's an example:
+    ```
+    chef-run ymir-api-00.dbright.io,ymir-lb-00.dbright.io,ymir-cache-00.dbright.io,ymir-backend-00.dbright.io dbag-secrets.rb -i ~/.ssh/id_rsa
+    [✔] Packaging cookbook... done!
+    [✔] Generating local policyfile... exporting... done!
+    [✔] Applying dbag-secrets from dbag-secrets.rb to targets.
+    ├── [✔] [ymir-api-00.dbright.io] Successfully converged dbag-secrets.
+    ├── [✔] [ymir-lb-00.dbright.io] Successfully converged dbag-secrets.
+    ├── [✔] [ymir-cache-00.dbright.io] Successfully converged dbag-secrets.
+    └── [✔] [ymir-backend-00.dbright.io] Successfully converged dbag-secrets.
+    ```
+_When using the 
+[attributes-loader cookbook](https://github.com/danielcbright/attributes-loader)
+I highly recommend that each data bag repo has it's own secret key, and they are
+placed in the `chef` directory on the node._
+
+## Using the Data Bag Repo with Test Kitchen
+This will assume a specific local directory structure on your local system, you
+will need to adjust things based on how you clone/stage repos and development
+directories on your own workstation.
+
+Let's assume that you have a directory structure for local development that
+looks like this:
+
+```bash
+chef-root
+|
+├── global-data-bags
+│   ├── data_bags
+│   └── secrets
+|
+|   # App Repo
+├── ymir
+|   |
+*   │   # Data Bag Repos
+    ├── global-data-bags
+    │   ├── data_bags
+    │   └── secrets
+    │       └── global_secret
+    ├── ymir-data-bags
+    │   ├── data_bags
+    │   └── secrets
+    │       └── ymir_secret
+    │
+    │   # Policy Cookbook Repos
+    ├── ymir-api-policy
+    │   └── kitchen.yml
+    ├── ymir-backend-policy
+    │   └── kitchen.yml
+    ├── ymir-base-policy
+    │   └── kitchen.yml
+    ├── ymir-cache-policy
+    │   └── kitchen.yml
+    └── ymir-lb-policy
+        └── kitchen.yml
+```
+
+With this structure, I want to setup my Test Kitchen configuration to do two
+things:
+
+1. Provision the kitchen instance with the data bag secrets that I need to 
+decrypt data bags.
+1. Tell Test Kitchen where my data bags are on disk so it will use them.
+
+I can do that by adding `data_path` and `data_bags_path` entries into my 
+`kitchen.yml` like so:
+```yml
+provisioner:
+  name: chef_zero
+  deprecations_as_errors: true
+  chef_license: accept-no-persist
+  product_name: chef
+  product_version: 16
+  client_rb: 
+    data_collector.server_url: 'https://<YOUR AUTOMATE URL>/data-collector/v0/'
+    data_collector.token: '<YOUR DATA_COLLECTOR TOKEN>'
+    chef_guid: '<CREATE YOUR OWN UUID>'
+    node_name: 'tk-centos7-ymirbase'
+  data_path: 
+    - "../global-data-bags/secrets/"
+    - "../ymir-data-bags/secrets/"
+  data_bags_path: 
+    - "../global-data-bags/data_bags/"
+    - "../ymir-data-bags/data_bags/"
+```
+
+What does this do? It copies over the secrets that are listed in `data_path` to
+a `tmp` directory on the newly provisioned Kitchen instance. In Linux, this will
+be under `/tmp/kitchen/data` and Windows will be `C:\Users\<username>\AppData\Local\Temp\kitchen\data`.
+
+Now I need to tell my cookbooks to use the right secret file, this is assuming
+you have all `data_bag_item()` loads set to use a secret file and not the
+default, for example, when using the [attributes-loader](https://github.com/danielcbright/attributes-loader) cookbook it requires default attributes to be
+set like this:
+```
+# attributes/default.rb
+
+default['attributes-loader']['dbags'] = {
+  "global": {
+    "secret_file": '/opt/chef/global_secret',
+  },
+  "ymir": {
+    "secret_file": '/opt/chef/ymir_secret',
+  },
+  "ymir-base": {
+    "secret_file": '/tmp/kitchen/data/ymir_secret',
+  },
+}
+```
+So in the `kitchen.yml` under `suites`, I would just do this:
+```yml
+suites:
+  - name: default
+    provisioner:
+      policyfile: Policyfile.rb
+    attributes:
+      attributes-loader:
+        dbags:
+          global:
+            secret_file: "/tmp/kitchen/data/global_secret"
+          ymir:
+            secret_file: "/tmp/kitchen/data/ymir_secret"
+          ymir-base:
+            secret_file: "/tmp/kitchen/data/ymir_secret"
+    verifier:
+      name: inspec
+```
+
+You can use this configuration for all of the Policy Cookbook Repos that are
+under the same `app` leaf, that way it's all consistent.
