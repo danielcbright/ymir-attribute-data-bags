@@ -99,11 +99,13 @@ allowing a `git commit` operation to continue. To do this, create a file called
 
 for d in data_bags/*/ ; do
   for f in $d* ; do
-    if grep -q 'encrypted_data' $f; then
-      echo "$f is encrypted [PASS]"
-    else
-      echo "$f contains non-encrypted data, please run the lock.sh script before committing again [FAIL]"
-      exit 1
+    if [[ "$f" != *"example"* ]];then # Skip example files
+      if grep -q 'encrypted_data' $f; then
+        echo "$f is encrypted [PASS]"
+      else
+        echo "$f contains non-encrypted data, please run the lock.sh script before committing again [FAIL]"
+        exit 1
+      fi
     fi
   done
 done
