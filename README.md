@@ -21,6 +21,8 @@ unique names it makes life easier.
 1. Create your data bags in the `data_bags` directory, you can use the
 examples as a guide, basically it's `data_bags\bagName\bagItem-open.json`, be sure to end them in `-open.json` because this is the pattern that is 
 looked for when running the encrypt script.
+1. You can copy the `data_bags/example/examplebag-open.json` into your own 
+`data_bags/bag/item` directory to get started.
 
 ## Version Data Bags
 Data Bags by default don't have a versioning schema, so we have to create our 
