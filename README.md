@@ -66,7 +66,7 @@ simple bash to get the job done.
 
 ## Encrypt Data Bags for Committing
 1. Run the `scripts/dbag-ops.sh -l -s <secret file path> [ -p <bagName> ]` which will encrypt each data bag in the 
-`data_bags` path into it's own new file removing `-open.json`. You can specify a pattern with `-p *bagname*` if you want to limit the scope of the operation, example:
+`data_bags` path into it's own new file removing `-open.json`. You can specify a pattern with `-p bagname` if you want to limit the scope of the operation, example:
     ```
     # Lock all data bags in the `data_bags` path:
     ./dbag-ops.sh -l -s ../secrets/my_super_secret
@@ -273,3 +273,7 @@ suites:
 
 You can use this configuration for all of the Policy Cookbook Repos that are
 under the same `app` leaf, that way it's all consistent.
+
+## TODO
+* add more guards on the `lock/unlock` functions
+* add a helper script to initialize a list of data bags
