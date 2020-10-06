@@ -172,6 +172,8 @@ looks like this:
 ```bash
 chef-root
 |
+|   
+|   # Global Data Bag Repo
 ├── global-data-bags
 │   ├── data_bags
 │   └── secrets
@@ -179,11 +181,7 @@ chef-root
 |   # App Repo
 ├── ymir
 |   |
-*   │   # Data Bag Repos
-    ├── global-data-bags
-    │   ├── data_bags
-    │   └── secrets
-    │       └── global_secret
+*   │   # App Data Bag Repo
     ├── ymir-data-bags
     │   ├── data_bags
     │   └── secrets
