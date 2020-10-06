@@ -82,10 +82,10 @@ files (overwriting the original), and then delete them.
 `data_bags` path into it's own new file, appending `-open.json`. You can specify a data bag name with `-p bagname` if you want to limit the scope of the operation, example:
     ```
     # Lock all data bags in the `data_bags` path:
-    ./dbag-ops.sh -l -s ../secrets/my_super_secret
+    ./dbag-ops.sh -u -s ../secrets/my_super_secret
 
     # Lock a specific data bag in the `data_bags` path:
-    ./dbag-ops.sh -l -s ../secrets/my_super_secret -p ymir-api
+    ./dbag-ops.sh -u -s ../secrets/my_super_secret -p ymir-api
     ```
 1. Don't delete or change the file that was created with `-open.json`, edit this
 file directly to change the data bag values, then save it prior to encrypting.
@@ -172,6 +172,8 @@ looks like this:
 ```bash
 chef-root
 |
+|   
+|   # Global Data Bag Repo
 ├── global-data-bags
 │   ├── data_bags
 │   └── secrets
@@ -179,11 +181,7 @@ chef-root
 |   # App Repo
 ├── ymir
 |   |
-*   │   # Data Bag Repos
-    ├── global-data-bags
-    │   ├── data_bags
-    │   └── secrets
-    │       └── global_secret
+*   │   # App Data Bag Repo
     ├── ymir-data-bags
     │   ├── data_bags
     │   └── secrets
